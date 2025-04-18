@@ -1,19 +1,7 @@
-// export default function Post() {
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CommentForm from "./commentform";
 import ListComment from "./listcomments";
-
-//     let Post = () => {
-
-//     }
-
-//   return (
-//     <div>
-
-//     </div>
-//   )
-// }
 
 let Post = () => {
 
@@ -22,11 +10,35 @@ let Post = () => {
     let showComment = ()=> setBtnComment(!btnComment);
     // console.log(btnComment)
 
-    // Listado de comentarios
-    let listCom = [
-        {id:1, text: "Me identifico con Homero"},
-        {id:2, text: "Que haria Bart en este caso?"}
-    ];
+    //Función para obtener datos del formulario
+    let [textComment, setTextComment]=useState("")
+    let getCommentData = (comment)=>{
+        setTextComment(comment)
+    }
+    // console.log(textComment)
+
+        // Listado de comentarios
+        let listCom = [
+            {id:1, text: "Me identifico con Homero"},
+            {id:2, text: "Que haria Bart en este caso?"},
+            {id:3, text: "Lisa sacaría el código de una pinche bruto"}
+        ];
+
+        let[id,setId]= useState(4)
+    
+        let [listData, setListData]=useState(listCom);
+        // VComprobar si hay un nuevo comentario en el formulario
+        useEffect(()=>{
+            if(textComment){
+                setListData([
+                    ...listData,
+                    {id: id, text: textComment}
+                ]);
+                setId(id+1);
+            }
+        }, [textComment]);
+        // console.log(listCom)
+        // console.log(listData)
 
   return (
     <div className="card" style={{"width" : "18rem"}}>
@@ -40,7 +52,7 @@ let Post = () => {
       </div>
       <ul className="list-group list-group-flush">
         <li className="list-group-item d-flex justify-content-around">
-            <span>❤️😂👍 {like}</span><span>2mil 💬</span>
+            <span>❤️😂👍 {like}</span><span>{listData.length} 💬</span>
         </li>
         <li className="list-group-item d-flex justify-content-around">
             <button className="btn btn-secondary" 
@@ -51,9 +63,9 @@ let Post = () => {
         </li>
       </ul>
       <div className="card-footer">
-        {btnComment && <CommentForm/>}
+        {btnComment && <CommentForm getCommentData={getCommentData}/>}
       </div>
-      <ListComment/>
+      <ListComment listComData={listData}/>
     </div>
   );
 };

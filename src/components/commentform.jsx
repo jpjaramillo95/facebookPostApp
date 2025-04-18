@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-let CommentForm = () => {
+let CommentForm = ({getCommentData}) => {
     let [comment, setComment]=useState("");
     let getComment = (e)=>{
         setComment(e.target.value);
@@ -12,7 +12,9 @@ let CommentForm = () => {
             onChange={getComment}>
             </textarea>
             <br />
-            <button className="btn btn-secondary">Comentar</button>
+            <button className="btn btn-secondary"
+            onClick={()=>getCommentData(comment)}>
+                Comentar</button>
         </section>
     )
 }
