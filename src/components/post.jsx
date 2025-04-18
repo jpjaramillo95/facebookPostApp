@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import CommentForm from "./commentform";
+import ListComment from "./listcomments";
 
 //     let Post = () => {
 
@@ -20,6 +21,12 @@ let Post = () => {
     let [btnComment, setBtnComment]=useState(false);
     let showComment = ()=> setBtnComment(!btnComment);
     // console.log(btnComment)
+
+    // Listado de comentarios
+    let listCom = [
+        {id:1, text: "Me identifico con Homero"},
+        {id:2, text: "Que haria Bart en este caso?"}
+    ];
 
   return (
     <div className="card" style={{"width" : "18rem"}}>
@@ -46,6 +53,7 @@ let Post = () => {
       <div className="card-footer">
         {btnComment && <CommentForm/>}
       </div>
+      <ListComment/>
     </div>
   );
 };
